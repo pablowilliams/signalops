@@ -1,0 +1,7 @@
+signalops:
+  target: local
+  outputs:
+    local:
+      type: duckdb
+      path: ./artifacts/signalops.duckdb
+      threads: 4

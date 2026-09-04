@@ -1,0 +1,594 @@
+{
+  "benchmark_version": "2026.09",
+  "generated_at": "2026-09-04T00:00:00Z",
+  "seed": 90426,
+  "scope": {
+    "days": 210,
+    "warmup_days": 42,
+    "test_incidents": 31,
+    "entity_hours": 48384,
+    "services": 4,
+    "regions": 3,
+    "telemetry_rows": 60480,
+    "checksum": "fb3536de6f518627",
+    "synthetic": true
+  },
+  "detectors": {
+    "baseline": {
+      "precision": 0.119,
+      "recall": 0.4839,
+      "f1": 0.1911,
+      "true_positives": 15,
+      "false_positives": 111,
+      "false_negatives": 16,
+      "alerts": 126,
+      "median_delay_hours": 0.0,
+      "mean_delay_hours": 0.0,
+      "false_alerts_per_1000_entity_hours": 2.2941,
+      "precision_ci_95": [
+        0.0735,
+        0.1872
+      ],
+      "recall_ci_95": [
+        0.3197,
+        0.6516
+      ],
+      "bootstrap_precision_ci_95": [
+        0.0635,
+        0.1825
+      ],
+      "bootstrap_recall_ci_95": [
+        0.3226,
+        0.6452
+      ],
+      "category_recall": {
+        "error_spike": 1.0,
+        "latency_regression": 1.0,
+        "revenue_drop": 0.0,
+        "traffic_drop": 0.0
+      }
+    },
+    "robust_raw": {
+      "precision": 0.0516,
+      "recall": 0.8387,
+      "f1": 0.0972,
+      "true_positives": 26,
+      "false_positives": 478,
+      "false_negatives": 5,
+      "alerts": 504,
+      "median_delay_hours": 0.0,
+      "mean_delay_hours": 0.0385,
+      "false_alerts_per_1000_entity_hours": 9.8793,
+      "precision_ci_95": [
+        0.0354,
+        0.0745
+      ],
+      "recall_ci_95": [
+        0.6737,
+        0.9291
+      ],
+      "bootstrap_precision_ci_95": [
+        0.0337,
+        0.0714
+      ],
+      "bootstrap_recall_ci_95": [
+        0.7097,
+        0.9677
+      ],
+      "category_recall": {
+        "error_spike": 1.0,
+        "latency_regression": 0.75,
+        "revenue_drop": 0.875,
+        "traffic_drop": 0.75
+      }
+    },
+    "signalops": {
+      "precision": 0.8788,
+      "recall": 0.9355,
+      "f1": 0.9062,
+      "true_positives": 29,
+      "false_positives": 4,
+      "false_negatives": 2,
+      "alerts": 33,
+      "median_delay_hours": 1.0,
+      "mean_delay_hours": 1.069,
+      "false_alerts_per_1000_entity_hours": 0.0827,
+      "precision_ci_95": [
+        0.7267,
+        0.9518
+      ],
+      "recall_ci_95": [
+        0.7928,
+        0.9821
+      ],
+      "bootstrap_precision_ci_95": [
+        0.7576,
+        0.9697
+      ],
+      "bootstrap_recall_ci_95": [
+        0.8387,
+        1.0
+      ],
+      "category_recall": {
+        "error_spike": 1.0,
+        "latency_regression": 1.0,
+        "revenue_drop": 0.75,
+        "traffic_drop": 1.0
+      }
+    }
+  },
+  "improvement": {
+    "f1_absolute": 0.7151,
+    "false_alert_reduction": 0.964,
+    "alert_reduction": 0.7381
+  },
+  "retrieval": {
+    "queries": 10,
+    "hit_rate_at_1": 0.8,
+    "hit_rate_at_3": 0.9,
+    "mrr": 0.85
+  },
+  "experiment": {
+    "units": 12000,
+    "control_mean": 0.3573,
+    "treatment_mean": 0.3795,
+    "absolute_lift": 0.0223,
+    "relative_lift": 0.0623,
+    "ci_low": 0.0166,
+    "ci_high": 0.0279,
+    "p_value": 0.0,
+    "variance_reduction": 0.4409,
+    "decision": "ship"
+  },
+  "incidents": [
+    {
+      "id": "INC-0032",
+      "service": "payments",
+      "region": "ap-south",
+      "category": "revenue_drop",
+      "severity": "medium",
+      "status": "investigating",
+      "started_at": "2025-07-22T20:00:00+00:00",
+      "duration_hours": 5,
+      "detected": true,
+      "detected_at": "2025-07-22T21:00:00+00:00",
+      "top_score": 23.71,
+      "diagnostics": [
+        {
+          "metric": "revenue",
+          "score": 8.32,
+          "title": "Revenue diverged from request volume",
+          "evidence": "Observed 668.728; robust seasonal deviation 8.3\u03c3.",
+          "next_step": "Validate checkout completion, pricing events, and payment authorization.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "requests",
+          "score": 2.84,
+          "title": "Traffic volume fell below its seasonal range",
+          "evidence": "Observed 709.700; robust seasonal deviation 2.8\u03c3.",
+          "next_step": "Check routing, upstream demand, and ingestion completeness.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "error_rate",
+          "score": 0.0,
+          "title": "Error rate rose above its seasonal range",
+          "evidence": "Observed 0.008; robust seasonal deviation 0.0\u03c3.",
+          "next_step": "Inspect the latest deployment and dependency error classes.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        }
+      ],
+      "runbooks": [
+        {
+          "document_id": "RB-REV-04",
+          "title": "Revenue conversion divergence",
+          "citation": "RB-REV-04 \u00b7 Investigation",
+          "excerpt": "Reconcile checkout starts, payment authorizations, completion events, pricing changes, refunds, and event lag. Compare revenue against request and conversion volume.",
+          "score": 2.006
+        },
+        {
+          "document_id": "RB-ERR-01",
+          "title": "Elevated application errors",
+          "citation": "RB-ERR-01 \u00b7 Triage",
+          "excerpt": "Compare error classes by deployment and dependency. Roll back only when the increase aligns with the release window. Check payment gateway and identity provider status.",
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "id": "INC-0031",
+      "service": "payments",
+      "region": "us-east",
+      "category": "traffic_drop",
+      "severity": "medium",
+      "status": "investigating",
+      "started_at": "2025-07-18T14:00:00+00:00",
+      "duration_hours": 7,
+      "detected": true,
+      "detected_at": "2025-07-18T15:00:00+00:00",
+      "top_score": 52.18,
+      "diagnostics": [
+        {
+          "metric": "requests",
+          "score": 16.0,
+          "title": "Traffic volume fell below its seasonal range",
+          "evidence": "Observed 1,142.146; robust seasonal deviation 16.0\u03c3.",
+          "next_step": "Check routing, upstream demand, and ingestion completeness.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "revenue",
+          "score": 14.98,
+          "title": "Revenue diverged from request volume",
+          "evidence": "Observed 2,457.476; robust seasonal deviation 15.0\u03c3.",
+          "next_step": "Validate checkout completion, pricing events, and payment authorization.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "error_rate",
+          "score": 0.0,
+          "title": "Error rate rose above its seasonal range",
+          "evidence": "Observed 0.009; robust seasonal deviation 0.0\u03c3.",
+          "next_step": "Inspect the latest deployment and dependency error classes.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        }
+      ],
+      "runbooks": [
+        {
+          "document_id": "RB-TRF-03",
+          "title": "Unexpected traffic loss",
+          "citation": "RB-TRF-03 \u00b7 Validation",
+          "excerpt": "Validate event freshness, routing, DNS, acquisition campaigns, and upstream client versions. Distinguish demand loss from missing telemetry before escalation.",
+          "score": 0.908
+        },
+        {
+          "document_id": "RB-LAT-02",
+          "title": "Regional latency regression",
+          "citation": "RB-LAT-02 \u00b7 Diagnosis",
+          "excerpt": "Compare p95 latency by region, dependency, saturation, queue depth, and deployment version. Shift traffic only after capacity and error-rate checks.",
+          "score": 0.875
+        }
+      ]
+    },
+    {
+      "id": "INC-0030",
+      "service": "catalog",
+      "region": "us-east",
+      "category": "latency_regression",
+      "severity": "critical",
+      "status": "resolved",
+      "started_at": "2025-07-13T10:00:00+00:00",
+      "duration_hours": 8,
+      "detected": true,
+      "detected_at": "2025-07-13T11:00:00+00:00",
+      "top_score": 50.1,
+      "diagnostics": [
+        {
+          "metric": "latency_p95_ms",
+          "score": 38.07,
+          "title": "Tail latency moved outside its expected range",
+          "evidence": "Observed 555.194; robust seasonal deviation 38.1\u03c3.",
+          "next_step": "Compare saturation, dependency latency, and regional capacity.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "error_rate",
+          "score": 8.57,
+          "title": "Error rate rose above its seasonal range",
+          "evidence": "Observed 0.023; robust seasonal deviation 8.6\u03c3.",
+          "next_step": "Inspect the latest deployment and dependency error classes.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "requests",
+          "score": 3.21,
+          "title": "Traffic volume fell below its seasonal range",
+          "evidence": "Observed 2,613.200; robust seasonal deviation 3.2\u03c3.",
+          "next_step": "Check routing, upstream demand, and ingestion completeness.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        }
+      ],
+      "runbooks": [
+        {
+          "document_id": "RB-LAT-02",
+          "title": "Regional latency regression",
+          "citation": "RB-LAT-02 \u00b7 Diagnosis",
+          "excerpt": "Compare p95 latency by region, dependency, saturation, queue depth, and deployment version. Shift traffic only after capacity and error-rate checks.",
+          "score": 3.367
+        },
+        {
+          "document_id": "RB-ERR-01",
+          "title": "Elevated application errors",
+          "citation": "RB-ERR-01 \u00b7 Triage",
+          "excerpt": "Compare error classes by deployment and dependency. Roll back only when the increase aligns with the release window. Check payment gateway and identity provider status.",
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "id": "INC-0029",
+      "service": "catalog",
+      "region": "ap-south",
+      "category": "error_spike",
+      "severity": "medium",
+      "status": "resolved",
+      "started_at": "2025-07-07T20:00:00+00:00",
+      "duration_hours": 5,
+      "detected": true,
+      "detected_at": "2025-07-07T21:00:00+00:00",
+      "top_score": 38.43,
+      "diagnostics": [
+        {
+          "metric": "error_rate",
+          "score": 38.43,
+          "title": "Error rate rose above its seasonal range",
+          "evidence": "Observed 0.069; robust seasonal deviation 38.4\u03c3.",
+          "next_step": "Inspect the latest deployment and dependency error classes.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "requests",
+          "score": 1.21,
+          "title": "Traffic volume fell below its seasonal range",
+          "evidence": "Observed 1,186.189; robust seasonal deviation 1.2\u03c3.",
+          "next_step": "Check routing, upstream demand, and ingestion completeness.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "latency_p95_ms",
+          "score": 0.0,
+          "title": "Tail latency moved outside its expected range",
+          "evidence": "Observed 246.610; robust seasonal deviation 0.0\u03c3.",
+          "next_step": "Compare saturation, dependency latency, and regional capacity.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        }
+      ],
+      "runbooks": [
+        {
+          "document_id": "RB-LAT-02",
+          "title": "Regional latency regression",
+          "citation": "RB-LAT-02 \u00b7 Diagnosis",
+          "excerpt": "Compare p95 latency by region, dependency, saturation, queue depth, and deployment version. Shift traffic only after capacity and error-rate checks.",
+          "score": 0.875
+        },
+        {
+          "document_id": "RB-ERR-01",
+          "title": "Elevated application errors",
+          "citation": "RB-ERR-01 \u00b7 Triage",
+          "excerpt": "Compare error classes by deployment and dependency. Roll back only when the increase aligns with the release window. Check payment gateway and identity provider status.",
+          "score": 0.817
+        }
+      ]
+    },
+    {
+      "id": "INC-0028",
+      "service": "catalog",
+      "region": "ap-south",
+      "category": "revenue_drop",
+      "severity": "medium",
+      "status": "resolved",
+      "started_at": "2025-07-01T23:00:00+00:00",
+      "duration_hours": 6,
+      "detected": true,
+      "detected_at": "2025-07-02T01:00:00+00:00",
+      "top_score": 6.27,
+      "diagnostics": [
+        {
+          "metric": "requests",
+          "score": 6.27,
+          "title": "Traffic volume fell below its seasonal range",
+          "evidence": "Observed 1,005.768; robust seasonal deviation 6.3\u03c3.",
+          "next_step": "Check routing, upstream demand, and ingestion completeness.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "revenue",
+          "score": 4.48,
+          "title": "Revenue diverged from request volume",
+          "evidence": "Observed 101.409; robust seasonal deviation 4.5\u03c3.",
+          "next_step": "Validate checkout completion, pricing events, and payment authorization.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "latency_p95_ms",
+          "score": 1.49,
+          "title": "Tail latency moved outside its expected range",
+          "evidence": "Observed 260.250; robust seasonal deviation 1.5\u03c3.",
+          "next_step": "Compare saturation, dependency latency, and regional capacity.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        }
+      ],
+      "runbooks": [
+        {
+          "document_id": "RB-REV-04",
+          "title": "Revenue conversion divergence",
+          "citation": "RB-REV-04 \u00b7 Investigation",
+          "excerpt": "Reconcile checkout starts, payment authorizations, completion events, pricing changes, refunds, and event lag. Compare revenue against request and conversion volume.",
+          "score": 2.006
+        },
+        {
+          "document_id": "RB-ERR-01",
+          "title": "Elevated application errors",
+          "citation": "RB-ERR-01 \u00b7 Triage",
+          "excerpt": "Compare error classes by deployment and dependency. Roll back only when the increase aligns with the release window. Check payment gateway and identity provider status.",
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "id": "INC-0027",
+      "service": "payments",
+      "region": "us-east",
+      "category": "traffic_drop",
+      "severity": "high",
+      "status": "resolved",
+      "started_at": "2025-06-28T02:00:00+00:00",
+      "duration_hours": 6,
+      "detected": true,
+      "detected_at": "2025-06-28T03:00:00+00:00",
+      "top_score": 41.81,
+      "diagnostics": [
+        {
+          "metric": "revenue",
+          "score": 13.42,
+          "title": "Revenue diverged from request volume",
+          "evidence": "Observed 852.422; robust seasonal deviation 13.4\u03c3.",
+          "next_step": "Validate checkout completion, pricing events, and payment authorization.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "requests",
+          "score": 12.94,
+          "title": "Traffic volume fell below its seasonal range",
+          "evidence": "Observed 401.768; robust seasonal deviation 12.9\u03c3.",
+          "next_step": "Check routing, upstream demand, and ingestion completeness.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "error_rate",
+          "score": 0.18,
+          "title": "Error rate rose above its seasonal range",
+          "evidence": "Observed 0.012; robust seasonal deviation 0.2\u03c3.",
+          "next_step": "Inspect the latest deployment and dependency error classes.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        }
+      ],
+      "runbooks": [
+        {
+          "document_id": "RB-TRF-03",
+          "title": "Unexpected traffic loss",
+          "citation": "RB-TRF-03 \u00b7 Validation",
+          "excerpt": "Validate event freshness, routing, DNS, acquisition campaigns, and upstream client versions. Distinguish demand loss from missing telemetry before escalation.",
+          "score": 0.908
+        },
+        {
+          "document_id": "RB-LAT-02",
+          "title": "Regional latency regression",
+          "citation": "RB-LAT-02 \u00b7 Diagnosis",
+          "excerpt": "Compare p95 latency by region, dependency, saturation, queue depth, and deployment version. Shift traffic only after capacity and error-rate checks.",
+          "score": 0.875
+        }
+      ]
+    },
+    {
+      "id": "INC-0026",
+      "service": "identity",
+      "region": "us-east",
+      "category": "latency_regression",
+      "severity": "medium",
+      "status": "resolved",
+      "started_at": "2025-06-21T11:00:00+00:00",
+      "duration_hours": 6,
+      "detected": true,
+      "detected_at": "2025-06-21T12:00:00+00:00",
+      "top_score": 24.21,
+      "diagnostics": [
+        {
+          "metric": "latency_p95_ms",
+          "score": 18.34,
+          "title": "Tail latency moved outside its expected range",
+          "evidence": "Observed 336.717; robust seasonal deviation 18.3\u03c3.",
+          "next_step": "Compare saturation, dependency latency, and regional capacity.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "error_rate",
+          "score": 14.16,
+          "title": "Error rate rose above its seasonal range",
+          "evidence": "Observed 0.032; robust seasonal deviation 14.2\u03c3.",
+          "next_step": "Inspect the latest deployment and dependency error classes.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "requests",
+          "score": 0.97,
+          "title": "Traffic volume fell below its seasonal range",
+          "evidence": "Observed 1,305.200; robust seasonal deviation 1.0\u03c3.",
+          "next_step": "Check routing, upstream demand, and ingestion completeness.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        }
+      ],
+      "runbooks": [
+        {
+          "document_id": "RB-LAT-02",
+          "title": "Regional latency regression",
+          "citation": "RB-LAT-02 \u00b7 Diagnosis",
+          "excerpt": "Compare p95 latency by region, dependency, saturation, queue depth, and deployment version. Shift traffic only after capacity and error-rate checks.",
+          "score": 3.367
+        },
+        {
+          "document_id": "RB-ERR-01",
+          "title": "Elevated application errors",
+          "citation": "RB-ERR-01 \u00b7 Triage",
+          "excerpt": "Compare error classes by deployment and dependency. Roll back only when the increase aligns with the release window. Check payment gateway and identity provider status.",
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "id": "INC-0025",
+      "service": "identity",
+      "region": "ap-south",
+      "category": "error_spike",
+      "severity": "critical",
+      "status": "resolved",
+      "started_at": "2025-06-17T20:00:00+00:00",
+      "duration_hours": 3,
+      "detected": true,
+      "detected_at": "2025-06-17T21:00:00+00:00",
+      "top_score": 60.44,
+      "diagnostics": [
+        {
+          "metric": "error_rate",
+          "score": 44.58,
+          "title": "Error rate rose above its seasonal range",
+          "evidence": "Observed 0.077; robust seasonal deviation 44.6\u03c3.",
+          "next_step": "Inspect the latest deployment and dependency error classes.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "requests",
+          "score": 2.84,
+          "title": "Traffic volume fell below its seasonal range",
+          "evidence": "Observed 469.990; robust seasonal deviation 2.8\u03c3.",
+          "next_step": "Check routing, upstream demand, and ingestion completeness.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        },
+        {
+          "metric": "revenue",
+          "score": 0.15,
+          "title": "Revenue diverged from request volume",
+          "evidence": "Observed 120.260; robust seasonal deviation 0.2\u03c3.",
+          "next_step": "Validate checkout completion, pricing events, and payment authorization.",
+          "limitation": "This is ranked observational evidence, not proof of causality."
+        }
+      ],
+      "runbooks": [
+        {
+          "document_id": "RB-LAT-02",
+          "title": "Regional latency regression",
+          "citation": "RB-LAT-02 \u00b7 Diagnosis",
+          "excerpt": "Compare p95 latency by region, dependency, saturation, queue depth, and deployment version. Shift traffic only after capacity and error-rate checks.",
+          "score": 0.875
+        },
+        {
+          "document_id": "RB-ERR-01",
+          "title": "Elevated application errors",
+          "citation": "RB-ERR-01 \u00b7 Triage",
+          "excerpt": "Compare error classes by deployment and dependency. Roll back only when the increase aligns with the release window. Check payment gateway and identity provider status.",
+          "score": 0.817
+        }
+      ]
+    }
+  ],
+  "release_gate": {
+    "passed": true,
+    "criteria": [
+      "F1 exceeds baseline",
+      "precision \u2265 0.75",
+      "recall \u2265 0.80",
+      "retrieval hit@3 \u2265 0.90"
+    ]
+  }
+}

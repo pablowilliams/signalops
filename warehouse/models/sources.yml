@@ -1,0 +1,23 @@
+version: 2
+sources:
+  - name: raw
+    schema: raw
+    loaded_at_field: ingested_at
+    freshness:
+      warn_after: {count: 2, period: hour}
+      error_after: {count: 4, period: hour}
+    tables:
+      - name: telemetry
+        columns:
+          - name: event_id
+            tests: [not_null, unique]
+          - name: timestamp
+            tests: [not_null]
+          - name: service
+            tests:
+              - accepted_values:
+                  values: [checkout, payments, identity, catalog]
+          - name: region
+            tests:
+              - accepted_values:
+                  values: [eu-west, us-east, ap-south]

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://signalops.dev/contracts/telemetry.schema.json",
+  "title": "SignalOps hourly service telemetry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "timestamp", "ingested_at", "service", "region", "deployment_version", "requests", "error_rate", "latency_p95_ms", "revenue"],
+  "properties": {
+    "event_id": { "type": "string", "minLength": 8, "maxLength": 80 },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "ingested_at": { "type": "string", "format": "date-time" },
+    "service": { "enum": ["checkout", "payments", "identity", "catalog"] },
+    "region": { "enum": ["eu-west", "us-east", "ap-south"] },
+    "deployment_version": { "type": "string", "pattern": "^[0-9]{4}\\.[0-9]{2}$" },
+    "requests": { "type": "number", "minimum": 0 },
+    "error_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+    "latency_p95_ms": { "type": ["number", "null"], "minimum": 0 },
+    "revenue": { "type": "number", "minimum": 0 }
+  }
+}

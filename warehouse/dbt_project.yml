@@ -1,0 +1,13 @@
+name: signalops
+version: 1.0.0
+config-version: 2
+profile: signalops
+model-paths: ["models"]
+test-paths: ["tests"]
+models:
+  signalops:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: incremental
+      +incremental_strategy: merge

@@ -1,0 +1,30 @@
+version: 2
+models:
+  - name: fct_service_health_hourly
+    description: One row per observed hour, service, and region; the canonical detector input.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: [observed_at, service, region]
+    columns:
+      - name: observed_at
+        tests: [not_null]
+      - name: service
+        tests: [not_null]
+      - name: region
+        tests: [not_null]
+      - name: requests
+        tests: [not_null]
+      - name: error_rate
+        tests: [not_null]
+  - name: incident_features
+    description: Leakage-safe lagged feature mart; all reference windows end one row before the observation.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: [observed_at, service, region]
+    columns:
+      - name: observed_at
+        tests: [not_null]
+      - name: service
+        tests: [not_null]
+      - name: region
+        tests: [not_null]

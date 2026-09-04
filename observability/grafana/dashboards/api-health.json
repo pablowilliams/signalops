@@ -1,0 +1,9 @@
+{
+  "title": "SignalOps API health",
+  "schemaVersion": 41,
+  "panels": [
+    {"type":"stat","title":"Requests","targets":[{"expr":"signalops_http_requests_total"}],"gridPos":{"h":8,"w":8,"x":0,"y":0}},
+    {"type":"stat","title":"Server errors","targets":[{"expr":"signalops_http_errors_total"}],"gridPos":{"h":8,"w":8,"x":8,"y":0}},
+    {"type":"timeseries","title":"Mean latency","targets":[{"expr":"signalops_http_latency_seconds_mean"}],"gridPos":{"h":8,"w":8,"x":16,"y":0}}
+  ]
+}

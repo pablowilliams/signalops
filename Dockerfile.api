@@ -1,0 +1,11 @@
+FROM python:3.13-slim AS runtime
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+WORKDIR /app
+COPY pyproject.toml ./
+COPY services/analytics ./services/analytics
+COPY artifacts ./artifacts
+RUN pip install --no-cache-dir .
+USER 65532:65532
+EXPOSE 8000
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz')"
+CMD ["uvicorn", "signalops.api:app", "--host", "0.0.0.0", "--port", "8000"]
