@@ -44,7 +44,7 @@ type Action = {
   updatedAt: number;
 };
 type Workspace = {
-  mode: "connecting" | "connected" | "demo";
+  mode: "connecting" | "connected" | "reference";
   user?: { displayName: string; email: string };
   actions: Action[];
   runs: Array<{ id: string; createdAt: number }>;
@@ -1599,7 +1599,7 @@ export function SignalOpsApp() {
           runs: data.runs || [],
         }),
       )
-      .catch(() => setWorkspace({ mode: "demo", actions: [], runs: [] }));
+      .catch(() => setWorkspace({ mode: "reference", actions: [], runs: [] }));
   }, []);
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -1789,7 +1789,7 @@ export function SignalOpsApp() {
                   ? "Private workspace"
                   : workspace.mode === "connecting"
                     ? "Connecting…"
-                    : "Demonstration mode"}
+                    : "Reference workspace"}
               </small>
             </div>
             <ChevronRight size={14} />
