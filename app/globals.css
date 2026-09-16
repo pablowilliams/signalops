@@ -2451,3 +2451,220 @@ kbd {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* 2026 visual system: industrial incident command, high signal and low gloss. */
+:root {
+  --canvas: #090b0d;
+  --surface: #121518;
+  --surface-subtle: #171b1f;
+  --ink: #f0eee8;
+  --muted: #a09d96;
+  --quiet: #716f6a;
+  --line: #292d31;
+  --line-strong: #3c4146;
+  --nav: #050607;
+  --nav-raised: #111416;
+  --blue: #f07a35;
+  --blue-dark: #ce5c1a;
+  --blue-soft: #2b1c13;
+  --green: #58b58b;
+  --green-soft: #13241d;
+  --amber: #efb64f;
+  --amber-soft: #2b2416;
+  --red: #e46455;
+  --red-soft: #2d1816;
+  --violet: #9a83df;
+  --shadow-sm: none;
+  --shadow-lg: 0 30px 80px rgb(0 0 0 / 55%);
+  --radius: 2px;
+}
+html,
+body {
+  background: var(--canvas);
+  color: var(--ink);
+}
+body {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    var(--canvas);
+  background-size: 28px 28px;
+}
+p {
+  color: var(--muted);
+}
+.sidebar {
+  width: 226px;
+  padding: 14px 11px;
+  background: #050607;
+  border-right: 1px solid #353a3f;
+}
+.brand {
+  padding-inline: 4px;
+}
+.brand > span {
+  border-radius: 0;
+  color: #0a0b0d;
+  background: var(--blue);
+  box-shadow: none;
+  transform: rotate(-3deg);
+}
+.brand strong {
+  font-family: var(--font-geist-mono), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.workspace-switch {
+  margin: 18px 0 12px;
+  border-radius: 0;
+  border-left: 4px solid var(--blue);
+  background: #121517;
+}
+.workspace-switch > span {
+  border-radius: 0;
+  background: #231a14;
+  color: #f29a61;
+  border-color: #4e2d1c;
+}
+.sidebar nav > div > p {
+  color: #7b6d65;
+}
+.sidebar nav button {
+  border-radius: 0;
+  border-bottom: 1px solid #171a1d;
+}
+.sidebar nav button:hover {
+  transform: none;
+  background: #171a1d;
+}
+.sidebar nav button.active {
+  background: #24180f;
+  box-shadow: inset 3px 0 var(--blue);
+}
+.sidebar nav button.active svg {
+  color: var(--blue);
+}
+.workspace {
+  margin-left: 226px;
+}
+.topbar {
+  height: 52px;
+  background: rgba(9, 11, 13, 0.94);
+  border-bottom: 1px solid var(--line-strong);
+}
+.breadcrumbs strong {
+  color: #ddd9d1;
+}
+.command-trigger,
+.icon-button {
+  border-radius: 0;
+  background: #121518;
+  border-color: #34393e;
+  color: #aaa7a0;
+}
+.command-trigger kbd {
+  background: #050607;
+  border-color: #34393e;
+  color: #98958e;
+}
+.content {
+  max-width: 1720px;
+  padding: 26px 28px 64px;
+}
+.page-header {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line-strong);
+}
+.eyebrow {
+  color: var(--blue);
+}
+.page-header h1 {
+  color: #f2f0e9;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(27px, 3vw, 42px);
+  letter-spacing: -0.05em;
+}
+.panel,
+.metric-grid,
+.incident-queue,
+.evidence-panel,
+.release-banner,
+.evaluation-card,
+.run-banner {
+  border-radius: 0 !important;
+  background: #121518 !important;
+  border-color: #30353a !important;
+  box-shadow: none !important;
+}
+.metric-grid article {
+  background: #121518;
+  border-color: #30353a;
+}
+.metric-grid article strong {
+  color: #f3f0e8;
+}
+.chart-heading h2,
+.panel h2,
+.panel h3 {
+  color: #eeeae2;
+}
+.button {
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: var(--font-geist-mono), monospace;
+}
+.button-primary {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #130b06;
+}
+.button-secondary {
+  background: #171b1f;
+  border-color: #3a4045;
+  color: #d5d1c9;
+}
+.data-table th {
+  background: #0b0d0f;
+  color: #85827c;
+}
+.data-table td {
+  border-color: #24282c;
+  color: #c7c3bc;
+}
+.status,
+.pill,
+.segmented {
+  border-radius: 0 !important;
+}
+.chart-canvas {
+  filter: saturate(0.82) contrast(1.08);
+}
+.notification-popover,
+.form-modal,
+.command-modal,
+.toast {
+  border-radius: 0;
+  background: #141719;
+  color: #eeeae2;
+  border-color: #3a4045;
+}
+input,
+select,
+textarea {
+  background: #0b0d0f !important;
+  color: #eeeae2 !important;
+  border-color: #3a4045 !important;
+  border-radius: 0 !important;
+}
+@media (max-width: 1050px) {
+  .workspace {
+    margin-left: 0;
+  }
+  .sidebar {
+    width: 250px;
+  }
+  .content {
+    padding-inline: 18px;
+  }
+}
