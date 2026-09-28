@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og.png",
+        url: "/og-cyber-lab.png",
         width: 1200,
         height: 630,
         alt: "SignalOps incident intelligence command center",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SignalOps",
     description: "Data incident intelligence with reproducible evaluation.",
-    images: ["/og.png"],
+    images: ["/og-cyber-lab.png"],
   },
 };
 

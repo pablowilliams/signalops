@@ -572,6 +572,58 @@ function PageHeader({
   );
 }
 
+function ServiceRadar({
+  selected,
+  select,
+}: {
+  selected: Incident;
+  select: (incident: Incident) => void;
+}) {
+  const points = [
+    { x: 51, y: 22 },
+    { x: 75, y: 39 },
+    { x: 63, y: 71 },
+    { x: 31, y: 67 },
+    { x: 24, y: 37 },
+  ];
+  const incidents = benchmark.incidents.slice(0, points.length);
+  return (
+    <section className="operations-radar panel" aria-label="Live service detection field">
+      <div className="radar-stage" aria-hidden="true">
+        <div className="radar-rings" />
+        <div className="radar-sweep" />
+        <span className="radar-axis radar-axis-x" />
+        <span className="radar-axis radar-axis-y" />
+        {incidents.map((incident, index) => (
+          <i
+            key={incident.id}
+            className={`radar-blip ${incident.id === selected.id ? "active" : ""} ${incident.severity}`}
+            style={{ left: `${points[index].x}%`, top: `${points[index].y}%` }}
+          />
+        ))}
+        <strong>12</strong><small>entities observed</small>
+      </div>
+      <div className="radar-feed">
+        <header><div><span className="eyebrow">Detection field</span><h2>Signals requiring attention</h2></div><Status tone="healthy">streaming</Status></header>
+        <div className="radar-feed-list">
+          {incidents.slice(0, 3).map((incident) => (
+            <button key={incident.id} onClick={() => select(incident)} aria-pressed={incident.id === selected.id}>
+              <span className={`feed-pulse ${incident.severity}`} />
+              <span><b>{incident.service}</b><small>{incident.region} · {titleCase(incident.category)}</small></span>
+              <em>{incident.top_score.toFixed(1)}σ</em>
+            </button>
+          ))}
+        </div>
+      </div>
+      <aside className="radar-selected">
+        <span>Focused signal</span><strong>{selected.id}</strong>
+        <p>{selected.service} in {selected.region} moved outside its seasonal envelope.</p>
+        <dl><div><dt>Peak score</dt><dd>{selected.top_score.toFixed(1)}σ</dd></div><div><dt>Severity</dt><dd>{titleCase(selected.severity)}</dd></div></dl>
+      </aside>
+    </section>
+  );
+}
+
 function Overview({
   selected,
   setSelected,
@@ -657,6 +709,7 @@ function Overview({
           </footer>
         </article>
       </div>
+      <ServiceRadar selected={selected} select={setSelected} />
       <div className="overview-layout">
         <main>
           <MetricChart incident={selected} />
