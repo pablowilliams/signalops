@@ -2,7 +2,23 @@
 
 **Data incident intelligence, measured.** SignalOps is a production-shaped portfolio project that detects service anomalies, ranks diagnostic evidence, retrieves cited runbooks, and preserves a durable analyst record.
 
+[![Live demo](https://img.shields.io/badge/live_demo-open-3978FF?style=flat-square)](https://pablowilliams.github.io/signalops/)
+[![CI](https://img.shields.io/github/actions/workflow/status/pablowilliams/signalops/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/pablowilliams/signalops/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-0B1220?style=flat-square)](LICENSE)
+
+[**Open the live command centre →**](https://pablowilliams.github.io/signalops/)
+
+![SignalOps data incident command centre](public/og.png)
+
 It is deliberately built across the boundaries interviewers care about: data engineering, applied statistics, ML evaluation, API design, orchestration, observability, and product-quality frontend work.
+
+## Why it is portfolio-grade
+
+| Product depth | Engineering depth | Evidence discipline |
+|---|---|---|
+| Incident triage, diagnostics, cited runbooks, analyst notes and resolution workflow | Next.js, FastAPI, dbt, Airflow, Cloudflare D1, Prometheus and Grafana | Seeded holdout, leakage controls, confidence intervals, ablations and machine-readable benchmark artefacts |
+
+**Reviewer shortcuts:** [live demo](https://pablowilliams.github.io/signalops/) · [case study](docs/case-study.md) · [architecture](docs/architecture.md) · [methodology](docs/backtest-methodology.md) · [claim ledger](docs/resume-evidence.md)
 
 ## Verified benchmark
 
@@ -88,3 +104,14 @@ The telemetry and incidents are synthetic; the project validates engineering and
 > On a seeded 31-incident synthetic holdout, improved event-level F1 from 19.1% to 90.6% and reduced false-positive episodes by 96.4% versus a rolling z-score baseline; reported bootstrap confidence intervals, ablations, category recall, and detection delay.
 
 See [`docs/resume-evidence.md`](docs/resume-evidence.md) for the exact claim boundaries and reproduction commands.
+
+## Flagship portfolio
+
+SignalOps is one of three end-to-end systems in my data and risk engineering portfolio:
+
+- [GraphShield](https://github.com/pablowilliams/graphshield) — explainable graph investigations backed by a Go worker architecture and Neo4j GDS.
+- [Payment Risk Workbench](https://github.com/pablowilliams/payment-risk-workbench) — capacity-aware payment-risk investigation with human approval controls.
+
+## Licence
+
+MIT. Built by Pablo Williams as a portfolio project.
